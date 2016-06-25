@@ -1,7 +1,23 @@
 <?php
 include '../include/header.php';
+?>
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/sweetalert.css">
+
+<script src="../js/sweetalert.min.js"></script>
 
 
+<script>
+
+    function errorFunction(){
+swal({   title: "Wrong username or password",   text: "Try again",   timer: 2000,   showConfirmButton: false });
+    }
+</script>
+
+
+<?php
 
  $name=$_POST['uname'];
  $pass=$_POST['pass'];
@@ -11,29 +27,33 @@ include '../include/header.php';
    $res=mysqli_fetch_assoc($query);
    if($res)
    {
-
+     session_start();
+     $_SESSION["user_id"] = $res['employee_id'];
      if ($res['account_status']=='admin'){
-       echo "THIS IS ADMIN";
+       header('Location: ../../web/adminViewEmployees.php');
+
      } elseif ($res['account_status']=='client') {
-       echo "THIS IS CLIENT";
+       header('Location: ../../web/adminView.php');
      }elseif ($res['account_status']=='head') {
-       echo "THIS IS HEAD";
+       header('Location: ../../web/adminView.php');
      }elseif ($res['account_status']=='worker') {
-       echo "THIS IS WORKER";
+       header('Location: ../../web/adminView.php');
      }
 
 
    }
    else
    {
-    echo'You entered username or password is incorrect';
-   }
+?>
+
+<script> errorFunction(); </script>
+
+<?php
+header( "refresh:2;url=../../index.php" );
+    }
  }
- else
- {
-  echo'Enter both username and password';
- }
+
 
 
 include '../include/footer.php';
- ?>
+?>

@@ -1,4 +1,8 @@
 <?php include '/resources/include/header.php'; ?>
+
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/login.css">
+
 <div style="text-align: center">
 <img src="images/yop.png" />
    </div>
