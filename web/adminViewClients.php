@@ -62,16 +62,16 @@ if($res)
 
         <?php } ;?>
 
-        <li class="active">
+        <li>
           <a href="adminViewEmployees.php?action=display"><i class="fa fa-fw  fa-group"></i> Employees</a>
         </li>
 
-        <li>
-            <a href="adminViewClients.php?action=display"><i class="fa fa-fw  fa-money"></i> Clients </a>
+        <li  class="active">
+          <a href="adminViewClients.php?action=display"><i class="fa fa-fw  fa-money"></i> Clients </a>
         </li>
 
         <li>
-          <a href="admin_cli.jsp"><i class="fa fa-fw  fa-money"></i> Accounts </a>
+          <a href="admin_cli.jsp"><i class="fa fa-fw  fa-sign-in"></i> Accounts </a>
         </li>
       </ul>
     </div>

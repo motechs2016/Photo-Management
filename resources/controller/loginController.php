@@ -30,7 +30,7 @@ swal({   title: "Wrong username or password",   text: "Try again",   timer: 2000
      session_start();
      $_SESSION["user_id"] = $res['employee_id'];
      if ($res['account_status']=='admin'){
-       header('Location: ../../web/adminViewEmployees.php');
+       header('Location: ../../web/adminViewEmployees.php?action=display');
 
      } elseif ($res['account_status']=='client') {
        header('Location: ../../web/adminView.php');
