@@ -58,7 +58,7 @@ if($res)
         <li style="text-align: center; float:none;">
           <img src="images/test.jpg" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
         </li>
-        <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo $res['worker_name']." "; echo $res['worker_surname'] ;?></b></li>
+        <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo strtoupper($res['worker_name']) ." "; echo strtoupper($res['worker_surname']) ;?></b></li>
 
         <?php } ;?>
 

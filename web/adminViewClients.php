@@ -58,7 +58,7 @@ if($res)
         <li style="text-align: center; float:none;">
           <img src="images/test.jpg" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
         </li>
-        <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo $res['worker_name']." "; echo $res['worker_surname'] ;?></b></li>
+        <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo strtoupper($res['worker_name']) ." "; echo strtoupper($res['worker_surname']) ;?></b></li>
 
         <?php } ;?>
 
@@ -82,43 +82,37 @@ if($res)
       <div class="row">
         <div class="col-lg-4">
           <h1 class="page-header">
-            Add or edit employee
+            Add or edit client
           </h1>
         </div>
         <div class="col-lg-8">
           <h1 class="page-header">
-            Employees overview
+            Clients overview
           </h1>
         </div>
       </div>
 <?php
 
-$editname='';$editsurname='';$editdate='';$editid='';
-$admin='';$head='';$worker='';
+$editname='';$editsurname='';$editdate='';$editid='';$editcompany='';
 
 if ($_GET['action']=='edit'){
-  $sql=mysqli_query($dbhandle,"select * from workers where worker_id='".$_GET["editid"]."'") or die(mysql_error());
+  $sql=mysqli_query($dbhandle,"select * from clients where client_id='".$_GET["editid"]."'") or die(mysql_error());
   $res3=mysqli_fetch_assoc($sql);
   if($res3)
   {
-    $editname=$res3['worker_name'];
-    $editsurname=$res3['worker_surname'];
-    $editdate=$res3['worker_date'];
-    $editid=$res3['worker_id'];
+    $editname=$res3['client_name'];
+    $editsurname=$res3['client_surname'];
+    $editdate=$res3['client_date'];
+    $editcompany=$res3['client_firm'];
+    $editid=$res3['client_id'];
 
-    if($res3['worker_status']=='Head'){
-      $head='selected';
-    }elseif ($res3['worker_status']=='Admin') {
-      $admin='selected';
-    }elseif ($res3['worker_status']=='Worker') {
-      $worker='selected';
-    }
+
   }
 }
  ?>
       <div class="row">
         <div class="col-lg-4">
-          <form method="POST" action='../resources/controller/employeeController.php?action=update'>
+          <form method="POST" action='../resources/controller/clientController.php?action=update'>
             <input type="hidden" name="id" value="<?= $editid; ?>"/> <br />
 
             <div class="form-group">
@@ -132,25 +126,20 @@ if ($_GET['action']=='edit'){
             </div>
 
             <div class="form-group">
-              <label>Status</label>
-              <select type="text" class="form-control" name="status">
-                <option disabled selected value>Select status</option>
-                <option value="Worker" <?=$worker;?> >Worker</option>
-                <option value="Head" <?=$head;?>>Head</option>
-                <option value="Admin" <?=$admin;?>>Admin</option>
-              </select>
+              <label>Company</label>
+              <input  type="text" class="form-control" name="company" value="<?= $editcompany; ?>">
             </div>
 
             <div class="input-append date form-group" id="datepicker" >
-              <label>Date hired</label>
+              <label>Date joined</label>
               <input class="form-control"  type="text" name="date" value="<?= $editdate; ?>">
               <span class="add-on"><i class="icon-th"></i></span>
             </div>
 <?php
 if ($_GET['action']=='display'){
-  $bvalue='Add employee';
+  $bvalue='Add new client';
 }else{
-  $bvalue='Update employee';
+  $bvalue='Update client';
 }
  ?>
             <button type="submit" class="btn btn-success col-lg-12"><?=$bvalue?></button>
@@ -163,8 +152,8 @@ if ($_GET['action']=='display'){
               <tr>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>Date hired</th>
-                <th>Status</th>
+                <th>Date joined</th>
+                <th>Company</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -172,18 +161,18 @@ if ($_GET['action']=='display'){
 
             <tbody>
 <?php
-$query2=mysqli_query($dbhandle,"select * from workers") or die(mysql_error());
+$query2=mysqli_query($dbhandle,"select * from clients") or die(mysql_error());
 //$res2=mysqli_fetch_assoc($query2);
 while($res2 = mysqli_fetch_array($query2))
 {
  ?>
  <tr>
-   <td><?= $res2['worker_name']; ?></td>
-   <td><?= $res2['worker_surname']; ?></td>
-   <td><?= $res2['worker_date']; ?></td>
-   <td><?= $res2['worker_status']; ?></td>
-   <td><a class="btn btn-danger" href="../resources/controller/employeeController.php?action=delete&deleteid=<?= $res2['worker_id']?> ">Delete</a></td>
-   <td><a class="btn btn-warning" href="adminViewEmployees.php?action=edit&editid=<?= $res2['worker_id']?> ">Edit</a></td>
+   <td><?= $res2['client_name']; ?></td>
+   <td><?= $res2['client_surname'];?></td>
+   <td><?= $res2['client_date']; ?></td>
+   <td><?= $res2['client_firm']; ?></td>
+   <td><a class="btn btn-danger" href="../resources/controller/clientController.php?action=delete&deleteid=<?= $res2['client_id']?> ">Delete</a></td>
+   <td><a class="btn btn-warning" href="adminViewClients.php?action=edit&editid=<?= $res2['client_id']?> ">Edit</a></td>
  </tr>
 
 <?php }; ?>
