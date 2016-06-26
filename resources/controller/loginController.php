@@ -23,26 +23,24 @@ swal({   title: "Wrong username or password",   text: "Try again",   timer: 2000
  $pass=$_POST['pass'];
  if($name!='' && $pass!='')
  {
-   $query=mysqli_query($dbhandle,"select * from accounts where account_uname='".$name."' and account_pass='".$pass."'") or die(mysql_error());
-   $res=mysqli_fetch_assoc($query);
+   $query=mysqli_query($dbhandle,"select * from accounts where account_uname='".$name."'") or die(mysql_error());
+   $res=mysqli_fetch_array($query);
    if($res)
    {
+     if(password_verify($pass,$res['account_pass'])){
      session_start();
      $_SESSION["user_id"] = $res['employee_id'];
      if ($res['account_status']=='admin'){
        header('Location: ../../web/adminViewEmployees.php?action=display');
 
      } elseif ($res['account_status']=='client') {
-       header('Location: ../../web/adminView.php');
+       header('Location: ../../web/adminViewEmployees.php?action=display');
      }elseif ($res['account_status']=='head') {
-       header('Location: ../../web/adminView.php');
+       header('Location: ../../web/adminViewEmployees.php?action=display');
      }elseif ($res['account_status']=='worker') {
-       header('Location: ../../web/adminView.php');
+       header('Location: ../../web/adminViewEmployees.php?action=display');
      }
-
-
-   }
-   else
+}   else
    {
 ?>
 
@@ -51,6 +49,9 @@ swal({   title: "Wrong username or password",   text: "Try again",   timer: 2000
 <?php
 header( "refresh:2;url=../../index.php" );
     }
+
+   }
+
  }
 
 

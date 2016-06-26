@@ -22,7 +22,8 @@ if($_POST['id']==''){
       header('Location: ../../web/adminViewAccounts.php?action=display');
   }
 }elseif($_GET['action']=='edit'){
-  $sql = "update accounts set account_pass='".$_POST['newpass']."' where account_id='".$_POST['id']."'";
+  $hashed=password_hash($_POST['newpass'], PASSWORD_DEFAULT);
+  $sql = "update accounts set account_pass='".$hashed."' where account_id='".$_POST['id']."'";
   if (mysqli_query($dbhandle, $sql)) {
       header('Location: ../../web/adminViewAccounts.php?action=display');
   }
