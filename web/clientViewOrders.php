@@ -103,7 +103,7 @@ format: 'yyyy-mm-dd'
 
       <div class="row">
         <div class="col-lg-4">
-          <form role="form" action="new_order.jsp">
+          <form role="form" method='post' action='../resources/controller/orderController.php?action=add'>
             <div class="form-group">
               <label>Folder name</label>
               <input  type="text" class="form-control" name="folder_name">
@@ -163,8 +163,8 @@ while($res2 = mysqli_fetch_array($query2))
       <div class="modal-body">
         This action is irreversible.
       </div>
-      <form  action='delete_order.jsp'>
-        <input  type="hidden" class="form-control" name="id" value="<?= $res2[0]; ?>">
+      <form  method="post" action='../resources/controller/orderController.php?action=delete'>
+        <input  type="hidden" class="form-control" name="deleteid" value="<?= $res2[0]; ?>">
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-danger">Delete order</button>
@@ -177,9 +177,71 @@ while($res2 = mysqli_fetch_array($query2))
 
 
 <?php }elseif($res2[6]=='In progress') {?>
-<td>In Progress</td>
+  <td class="alert alert-warning" style="cursor: pointer" class="alert alert-danger" data-toggle="modal" data-target="#<?= $res2[0]; ?>percent"><?= $res2[6]; ?></td>
+  <div class="modal fade" id="<?= $res2[0]; ?>percent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Current progress for <b><?= $res2[2]; ?></b></h4>
+        </div>
+        <div class="modal-body">
+          <?php
+          $sprogres="select orders.order_photos, assigns.assign_done from orders join assigns on orders.order_id=assigns.order_id where assigns.order_id='".$res2[0]."'";
+          $squery=mysqli_query($dbhandle,$sprogres) or die(mysql_error());
+          while($sres = mysqli_fetch_array($squery)){
+            $tot=intval($sres['order_photos']);
+            $done=intval($sres['assign_done']);
+            $val=(100*$done)/$tot;
+          ?>
+          <div class="progress " style="margin-bottom: 0px; background-color:#ddd;">
+            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: <?=$val?>%"></div>
+          </div>
+          <center> <b><?=$done?> / <?=$tot?></b></center>
+          <?php } ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <?php }else{ ?>
-<td>Done</td>
+
+  <td class="alert alert-success" style="cursor: pointer"  data-toggle="modal" data-target="#<?= $res2[0]; ?>percent"><?= $res2[6]; ?></td>
+  <div class="modal fade" id="<?= $res2[0]; ?>percent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"><b><?= $res2[2]; ?></b> folder was completed!</h4>
+        </div>
+        <div class="modal-body">
+          <?php
+          $sprogres="select orders.order_photos, assigns.assign_done, assign_completed, worker_name, worker_surname from orders "
+                          ."join assigns on orders.order_id=assigns.order_id join workers on assigns.worker_id=workers.worker_id where assigns.order_id='".$res2[0]."'";
+          $squery=mysqli_query($dbhandle,$sprogres) or die(mysql_error());
+          while($sres = mysqli_fetch_array($squery)){
+            $tot=intval($sres['order_photos']);
+            $done=intval($sres['assign_done']);
+            $val=(100*$done)/$tot;
+          ?>
+          <div class="progress " style="margin-bottom: 0px; background-color:#ddd;">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: <?=$val?>%"></div>
+          </div>
+          <br>Completed by <?php echo $sres[3].' '.$sres[4].' on '.$sres[2] ?>
+          <?php } ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <?php } ?>
 
 
