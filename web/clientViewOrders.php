@@ -13,9 +13,28 @@
 <script src="../resources/js/bootstrap.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-      $('#example').DataTable();
-    });
+$(document).ready(function() {
+$('#example').DataTable({
+    "lengthMenu": [ 15,25,50],
+    "order": [[ 4, "desc" ]]
+}
+        );
+
+var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+$('#datepicker').datepicker({
+onRender: function(date) {
+return date.valueOf() < now.valueOf() ? 'disabled' : '';
+},
+format: 'yyyy-mm-dd'
+
+
+
+
+});
+} );
+
 </script>
 
 
@@ -84,122 +103,88 @@
 
       <div class="row">
         <div class="col-lg-4">
-          <form method="POST" action='../resources/controller/orderController.php?action=update'>
-            <input type="hidden" name="id" /> <br />
-
+          <form role="form" action="new_order.jsp">
             <div class="form-group">
-              <label>Username</label>
-              <input  type="text" class="form-control" name="uname" >
+              <label>Folder name</label>
+              <input  type="text" class="form-control" name="folder_name">
             </div>
 
             <div class="form-group">
-              <label>Password</label>
-              <input  type="text" class="form-control" name="pass" >
+              <label>Number of photos</label>
+              <input  type="number" class="form-control" name="folder_photos">
             </div>
 
-            <div class="form-group">
-              <label>Status</label>
-              <select type="text" class="form-control" name="status">
-                <option disabled selected value>Select privilege</option>
-                <option value="worker">worker</option>
-                <option value="head">head</option>
-                <option value="admin">admin</option>
-                <option value="client">client</option>
-              </select>
+            <div class="input-append date form-group" id="datepicker" >
+              <label>Due date</label>
+              <input class="form-control"  type="text" name="folder_due">
+              <span class="add-on"><i class="icon-th"></i></span>
             </div>
 
-            <div class="form-group">
-              <label>Person</label>
-              <select type="text" class="form-control" name="person">
-                <option disabled selected value>Select person</option>
-                <?php
-                $woacc="SELECT worker_id, worker_name, worker_surname FROM workers where worker_id not in (SELECT employee_id from accounts) "
-                        ."union "
-                        ."SELECT client_id, client_name, client_surname FROM clients where client_id not in (SELECT employee_id from accounts)";
-                $query3=mysqli_query($dbhandle,$woacc) or die(mysql_error());
-
-                while($res3 = mysqli_fetch_array($query3))
-                {
-                 ?>
-
-                 <option value="<?=$res3['worker_id']?>"><?php echo $res3['worker_name']." ".$res3['worker_surname']; ?> </option>
-                 <?php } ?>
-              </select>
-          </div>
-<?php
-if ($_GET['action']=='display'){
-  $bvalue='Add new account';
-}else{
-  $bvalue='Update client';
-}
- ?>
-            <button type="submit" class="btn btn-success col-lg-12"><?=$bvalue?></button>
+            <button type="submit" class="btn btn-success col-lg-12">Place order</button>
           </form>
         </div>
 
         <div class="col-lg-8">
           <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
-              <tr>
-                <th>Username</th>
-                <th>Status</th>
-                <th>Employee</th>
-                <th></th>
-                <th></th>
-              </tr>
+                <tr>
+                    <th>Folder</th>
+                    <th>Date submitted</th>
+                    <th>Due date</th>
+                    <th>Photos</th>
+                    <th>Status</th>
+                </tr>
             </thead>
 
             <tbody>
 <?php
-$selectall="(select accounts.account_id, accounts.account_uname, accounts.account_pass, accounts.account_status, clients.client_name, clients.client_surname "
-        . "from accounts join clients on accounts.employee_id=clients.client_id) "
-        . "UNION "
-        ."(select accounts.account_id, accounts.account_uname, accounts.account_pass, accounts.account_status, workers.worker_name, workers.worker_surname "
-        . "from accounts join workers on accounts.employee_id=workers.worker_id)";
+$selectall="select * from orders where client_id='".$_SESSION['user_id']."'";
 $query2=mysqli_query($dbhandle,$selectall) or die(mysql_error());
 
 while($res2 = mysqli_fetch_array($query2))
 {
  ?>
  <tr>
-   <td><?= $res2['account_uname']; ?></td>
-   <td><?= $res2['account_status'];?></td>
-   <td><?php echo $res2[4]." ".$res2[5]; ?></td>
-   <td><a class="btn btn-danger" href="../resources/controller/accountController.php?action=delete&deleteid=<?= $res2['account_id']?> ">Delete</a></td>
-    <td><a class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $res2[4]."".$res2[5]; ?>">Change password</a></td>
- </tr>
- <!-- Modal -->
- <div class="modal fade" id="<?php echo $res2[4]."".$res2[5]; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-         <h4 class="modal-title" id="myModalLabel">Change password for <?php echo $res2[4]." ".$res2[5]; ?></h4>
-       </div>
-       <div class="modal-body">
-
-           <form  method="POST" action='../resources/controller/accountController.php?action=edit'>
-
-                       <input  type="hidden" class="form-control" name="id" value="<?= $res2['account_id']?>">
-                             <div class="form-group">
-                                 <label>New password</label>
-                                 <input  type="text" class="form-control" name="newpass" >
-                             </div>
+   <td><?= $res2[2]; ?></td>
+   <td><?= $res2[3]; ?></td>
+   <td><?= $res2[4]; ?></td>
+   <td><?= $res2[5]; ?></td>
+<?php if ($res2[6]=='Not started'){ ?>
+  <td style="cursor: pointer" class="alert alert-danger" data-toggle="modal" data-target="#<?= $res2[0]; ?>"><?= $res2[6]; ?></td>
 
 
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-         <button type="submit" class="btn btn-primary">Save changes</button>
+<div class="modal fade" id="<?= $res2[0]; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure you want to delete <b><?= $res2[2]; ?></b> order?</h4>
+      </div>
+      <div class="modal-body">
+        This action is irreversible.
+      </div>
+      <form  action='delete_order.jsp'>
+        <input  type="hidden" class="form-control" name="id" value="<?= $res2[0]; ?>">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger">Delete order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-            </form>
-       </div>
-     </div>
-   </div>
- </div>
 
 
-<?php }; ?>
+<?php }elseif($res2[6]=='In progress') {?>
+<td>In Progress</td>
+<?php }else{ ?>
+<td>Done</td>
+<?php } ?>
+
+
+
+<?php }; //WHILE END?>
             </tbody>
           </table>
         </div>
