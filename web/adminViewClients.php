@@ -71,7 +71,7 @@ if($res)
         </li>
 
         <li>
-          <a href="admin_cli.jsp"><i class="fa fa-fw  fa-sign-in"></i> Accounts </a>
+          <a href="adminViewAccounts.php?action=display"><i class="fa fa-fw  fa-sign-in"></i> Accounts </a>
         </li>
       </ul>
     </div>
