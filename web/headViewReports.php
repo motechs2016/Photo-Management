@@ -74,7 +74,7 @@ if($res)
 
 
         <li>
-          <a href="headViewReports.php"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
+          <a href="headViewMessages.php?sendid=3"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>
 
         <li  class='active'>

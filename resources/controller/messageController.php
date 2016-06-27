@@ -20,7 +20,7 @@ if($whereto=='worker'){
 }elseif ($whereto=='client') {
   header('Location: ../../web/clientViewDash.php');
 }elseif ($whereto=='head') {
-  header('Location: ../../web/headViewMessages.php?receiver='.$receiver);
+  header('Location: ../../web/headViewMessages.php?sendid='.$receiver);
 }
 //}
 
