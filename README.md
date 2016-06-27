@@ -12,7 +12,7 @@ Login using one of the following **usernames**  to access different levels of pe
 
 - admin
 
-The password for all accounts is **123**
+The **password** for all accounts is **123**
 
 #Screenshots
 ![image](https://cloud.githubusercontent.com/assets/16245796/16398949/272e1bca-3cd7-11e6-8c05-2720f31162c2.png)
