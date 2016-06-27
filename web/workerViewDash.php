@@ -94,7 +94,7 @@ if($res)
         <?php } ;?>
 
         <li class='active'>
-          <a href="clientViewDash.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+          <a href="workerViewDash.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
         </li>
 
 
@@ -123,7 +123,7 @@ if($res)
 
       <div class="row">
         <div class="col-lg-4" style="margin-top: 20px">
-          <form role="form" action="new_done.jsp">
+          <form method="POST" action='../resources/controller/doneController.php'>
             <div class="form-group">
               <label>Folder name</label>
                 <select class="form-control" name="folder">
@@ -223,7 +223,7 @@ while($res2 = mysqli_fetch_array($query2))
       </div>
 
       <div class="row" style="margin-top: 20px; margin-bottom: 20px"></div>
-      
+
       <div class="row">
         <div class="col-lg-6">
           <div class="chat-panel panel panel-default" >
