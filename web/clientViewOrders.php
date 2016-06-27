@@ -1,5 +1,5 @@
 <?php include '../resources/include/header.php';?>
-
+<title>Orders</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/datepicker.css">
@@ -48,7 +48,6 @@ format: 'yyyy-mm-dd'
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img src="images/logo.png" alt="image" style="width: 60%; height: 60%; ">
     </div>
 
     <ul class="nav navbar-right top-nav">
@@ -66,7 +65,7 @@ format: 'yyyy-mm-dd'
   {
   ?>
         <li style="text-align: center; float:none;">
-          <img src="images/test.jpg" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
+          <img src="../resources/images/<?php echo $res['client_name'].$res['client_surname'].".png";?>" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
         </li>
         <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo strtoupper($res['client_name']) ." "; echo strtoupper($res['client_surname']) ;?></b></li>
 

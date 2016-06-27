@@ -1,5 +1,5 @@
 <?php include '../resources/include/header.php';?>
-
+<title>Employees</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/datepicker.css">
@@ -38,7 +38,6 @@ $(document).ready(function() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img src="images/logo.png" alt="image" style="width: 60%; height: 60%; ">
     </div>
 
     <ul class="nav navbar-right top-nav">
@@ -56,7 +55,7 @@ if($res)
 {
  ?>
         <li style="text-align: center; float:none;">
-          <img src="images/test.jpg" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
+          <img src="../resources/images/<?php echo $res['worker_name'].$res['worker_surname'].".png";?>" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
         </li>
         <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo strtoupper($res['worker_name']) ." "; echo strtoupper($res['worker_surname']) ;?></b></li>
 
@@ -118,7 +117,7 @@ if ($_GET['action']=='edit'){
  ?>
       <div class="row">
         <div class="col-lg-4">
-          <form method="POST" action='../resources/controller/employeeController.php?action=update'>
+          <form method="POST" action='../resources/controller/employeeController.php?action=update' enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $editid; ?>"/> <br />
 
             <div class="form-group">
@@ -145,6 +144,11 @@ if ($_GET['action']=='edit'){
               <label>Date hired</label>
               <input class="form-control"  type="text" name="date" value="<?= $editdate; ?>">
               <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+
+            <div class="form-group">
+              <label>Picture</label>
+              <input type="file" name="image" />
             </div>
 <?php
 if ($_GET['action']=='display'){

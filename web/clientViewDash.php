@@ -1,5 +1,5 @@
 <?php include '../resources/include/header.php';?>
-
+<title>Dashboard</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/sb-admin.css">
 <link rel="stylesheet" href="../resources/font-awesome/css/font-awesome.min.css">
@@ -84,7 +84,6 @@ $("#mydiv").scrollTop($("#mydiv")[0].scrollHeight);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img src="images/logo.png" alt="image" style="width: 60%; height: 60%; ">
     </div>
 
     <ul class="nav navbar-right top-nav">
@@ -102,7 +101,7 @@ if($res)
 {
  ?>
         <li style="text-align: center; float:none;">
-          <img src="images/test.jpg" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
+          <img src="../resources/images/<?php echo $res['client_name'].$res['client_surname'].".png";?>" alt="image" class="img-circle" style="width: 150px; height: 150px; margin: 20px 0 0 0; ">
         </li>
         <li style="text-align: center; float:none; color:#fff; margin: 20px 0 20px 0; " ><b><?php echo strtoupper($res['client_name']) ." "; echo strtoupper($res['client_surname']) ;?></b></li>
 
@@ -242,7 +241,7 @@ if($res)
                  ?>
                  <li class="left clearfix">
                   <span class="chat-img pull-left">
-                    <img src="images/<?php echo $res5[1]."".$res5[2];?>.png" alt="User Avatar" class="img-circle" style="width: 65px; height: 65px; margin-right: 15px; margin-bottom: 10px">
+                    <img src="../resources/images/<?php echo $res5[1]."".$res5[2];?>.png" alt="User Avatar" class="img-circle" style="width: 65px; height: 65px; margin-right: 15px; margin-bottom: 10px">
                   </span>
                   <div class="chat-body clearfix" style="margin-top: 10px">
                     <div class="header">

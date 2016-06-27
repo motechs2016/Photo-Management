@@ -7,7 +7,7 @@
   </head>
   <body>
     <div style="text-align: center">
-      <img src="images/yop.png" />
+      <img src="resources/images/logo.png" />
     </div>
     <div class="wrapper">
    <form class="form-signin" action="resources/controller/loginController.php" method="post">
