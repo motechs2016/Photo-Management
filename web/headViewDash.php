@@ -150,11 +150,11 @@ if($res)
 
 
         <li>
-          <a href="clientViewOrders.php"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
+          <a href="headViewReports.php"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>
 
         <li>
-          <a href="clientViewOrders.php"><i class="fa fa-fw  fa-comments"></i> Reports </a>
+          <a href="headViewReports.php"><i class="fa fa-fw  fa-comments"></i> Reports </a>
         </li>
 
 
