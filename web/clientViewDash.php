@@ -263,7 +263,7 @@ if($res)
                </ul>
               </div>
               <div class="panel-footer">
-                <form method="POST" action='../resources/controller/messageController.php'>
+                <form method="POST" action='../resources/controller/messageController.php?sender=client'>
                   <div class="input-group">
                     <input  type="hidden" value="<?=$to?>" name="sendid">
                     <input  type="text" class="form-control input-sm" placeholder="Type your message here..." name="message">

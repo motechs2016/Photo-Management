@@ -38,7 +38,7 @@ swal({   title: "Wrong username or password",   text: "Try again",   timer: 2000
      }elseif ($res['account_status']=='head') {
        header('Location: ../../web/adminViewEmployees.php?action=display');
      }elseif ($res['account_status']=='worker') {
-       header('Location: ../../web/adminViewEmployees.php?action=display');
+       header('Location: ../../web/workerViewDash.php');
      }
 }   else
    {
