@@ -23,9 +23,7 @@ $(document).ready(function() {
     }
     );
 
-    $('#datepicker').datepicker({
-        format: 'mm/dd/yyyy'
-    });
+$("#mydiv").scrollTop($("#mydiv")[0].scrollHeight);
 } );
 
 
@@ -189,7 +187,7 @@ if($res)
                   <i class="fa fa-refresh fa-fw"></i>
                 </div>
               </div>
-              <div class="panel-body" id="myDiv" style="height: 250px; overflow:auto;">
+              <div class="panel-body" id="mydiv" style="height: 250px; overflow:auto;">
                 <ul class="chat" style="list-style-type:none">
                   <?php
                   $smessages="select * from messages where ".

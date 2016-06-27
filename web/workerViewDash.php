@@ -15,6 +15,10 @@
 <script src="../resources/js/exporting.js"></script>
 
 <script>
+    $(document).ready(function() {
+
+    $("#idk").scrollTop($("#idk")[0].scrollHeight);
+    } );
 
    $(function () {
    $('#container').highcharts({
@@ -44,7 +48,7 @@
 
 
 </script>
-   <script>
+<script>
 $(document).ready(function() {
    $('#example').DataTable({
        "lengthMenu": [ 5],
@@ -54,9 +58,12 @@ $(document).ready(function() {
 $('#datepicker').datepicker({
    format: 'mm/dd/yyyy'
 });
+
+
 } );
 
-   </script>
+
+</script>
 
 
 <div id="wrapper">
@@ -235,7 +242,7 @@ while($res2 = mysqli_fetch_array($query2))
                 <i class="fa fa-refresh fa-fw"></i>
               </div>
             </div>
-            <div class="panel-body" id="myDiv" style="height: 250px; overflow:auto;">
+            <div class="panel-body" id="idk" style="height: 250px; overflow:auto;">
               <ul class="chat" style="list-style-type:none">
                 <?php
                 $smessages="select * from messages where ".
