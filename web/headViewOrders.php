@@ -1,4 +1,4 @@
-<?php include '../resources/include/header.php'; session_start();?>
+<?php include '../resources/include/header.php';?>
 
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">
@@ -75,7 +75,7 @@ if($res)
           $lastsender=$ress[0];
         }
         ?>
-          
+
         <li>
           <a href="headViewMessages.php?sendid=<?=$lastsender?>"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>
@@ -147,7 +147,7 @@ if($res)
 
 
 
-            <button type="submit" class="btn btn-success col-lg-12">Place order</button>
+            <button type="submit" class="btn btn-success col-lg-12">Assign folder</button>
           </form>
         </div>
 

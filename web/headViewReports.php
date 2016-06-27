@@ -1,4 +1,4 @@
-<?php include '../resources/include/header.php'; session_start();?>
+<?php include '../resources/include/header.php';?>
 <title>Reports</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">
@@ -79,7 +79,7 @@ if($res)
           $lastsender=$ress[0];
         }
         ?>
-      
+
         <li>
           <a href="headViewMessages.php?sendid=<?=$lastsender?>"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>

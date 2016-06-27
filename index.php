@@ -1,11 +1,14 @@
-<?php include '/resources/include/header.php'; ?>
-
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/css/login.css">
-
-<div style="text-align: center">
-<img src="images/yop.png" />
-   </div>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/login.css">
+  </head>
+  <body>
+    <div style="text-align: center">
+      <img src="images/yop.png" />
+    </div>
     <div class="wrapper">
    <form class="form-signin" action="resources/controller/loginController.php" method="post">
      <h2 class="form-signin-heading">Please login</h2>
@@ -16,4 +19,8 @@
      </label>
      <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login"></button>
    </form>
-<?php include '/resources/include/footer.php'; ?>
+ </body>
+ <footer>
+
+</footer>
+</html>

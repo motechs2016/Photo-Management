@@ -1,4 +1,4 @@
-<?php include '../resources/include/header.php'; session_start();?>
+<?php include '../resources/include/header.php';?>
 <title>Messages</title>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">

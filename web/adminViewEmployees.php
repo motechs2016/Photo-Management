@@ -1,4 +1,4 @@
-<?php include '../resources/include/header.php'; session_start();?>
+<?php include '../resources/include/header.php';?>
 
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/dataTables.bootstrap.min.css">
@@ -148,7 +148,7 @@ if ($_GET['action']=='edit'){
             </div>
 <?php
 if ($_GET['action']=='display'){
-  $bvalue='Add employee';
+  $bvalue='Add new employee';
 }else{
   $bvalue='Update employee';
 }
