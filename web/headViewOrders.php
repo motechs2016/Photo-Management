@@ -101,13 +101,23 @@ if($res)
 
       <div class="row">
         <div class="col-lg-4">
-          <form role="form" method='post' action='../resources/controller/assignController.php?action=add'>
+          <form method="POST" action='../resources/controller/assignController.php'>
             <div class="form-group">
               <label>Folder name</label>
               <select class="form-control" name="order_id">
                 <option selected disabled hidden style='display: none' value=''></option>
-                <option value=''>R</option>
-                <option value=''>D</option>
+                <option selected disabled hidden style='display: none' value=''></option>
+
+                <?php
+                $woacc='select * from orders where order_status=\'Not started\' ';
+                $query3=mysqli_query($dbhandle,$woacc) or die(mysql_error());
+
+                while($res3 = mysqli_fetch_array($query3))
+                {
+                 ?>
+
+                 <option value="<?=$res3['order_id']?>"><?php echo $res3['order_folder']?> </option>
+                 <?php } ?>
               </select>
             </div>
 
@@ -115,8 +125,16 @@ if($res)
               <label>Folder name</label>
               <select class="form-control" name="worker_id">
                 <option selected disabled hidden style='display: none' value=''></option>
-                <option value=''>R</option>
-                <option value=''>D</option>
+                <?php
+                $select_emp="select * from workers where worker_status='Worker'";
+                $query_emp=mysqli_query($dbhandle,$select_emp) or die(mysql_error());
+
+                while($res_emp = mysqli_fetch_array($query_emp))
+                {
+                 ?>
+
+                 <option value="<?=$res_emp['worker_id']?>"><?php echo $res_emp['worker_name'].' '.$res_emp['worker_surname']?> </option>
+                 <?php } ?>
               </select>
             </div>
 
