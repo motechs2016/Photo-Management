@@ -72,9 +72,16 @@ if($res)
           <a href="headViewOrders.php"><i class="fa fa-fw  fa-edit"></i> Orders </a>
         </li>
 
-
+        <?php
+        $sqls="SELECT message_receiver from messages where message_sender='".$_SESSION["user_id"]."'"." order by message_date desc limit 1";
+        $querys=mysqli_query($dbhandle, $sqls);
+        while($ress=mysqli_fetch_array($querys)){
+          $lastsender=$ress[0];
+        }
+        ?>
+      
         <li>
-          <a href="headViewMessages.php?sendid=3"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
+          <a href="headViewMessages.php?sendid=<?=$lastsender?>"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>
 
         <li  class='active'>

@@ -75,8 +75,18 @@ if($res)
         </li>
 
 
-        <li  class='active'>
-          <a href="headViewMessages.php?sendid=3"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
+        <?php
+        $sqls="SELECT message_receiver from messages where message_sender='".$_SESSION["user_id"]."'"." order by message_date desc limit 1";
+        $querys=mysqli_query($dbhandle, $sqls);
+        while($ress=mysqli_fetch_array($querys)){
+          $lastsender=$ress[0];
+        }
+        ?>
+
+
+
+        <li class="active">
+          <a href="headViewMessages.php?sendid=<?=$lastsender?>"><i class="fa fa-fw  fa-list-alt"></i> Messages </a>
         </li>
 
         <li >
@@ -131,8 +141,6 @@ if($res)
           <h1 class="page-header">Recent orders</h1>
           <?php } ?>
         </div>
-
-
       </div>
 
 
@@ -228,10 +236,73 @@ if($res)
                   </form>
                 </div>
               </div>
-
             </div>
 
-
+            <div class="col-lg-3">
+              <?php if(intval($name)<1000){ ?>
+              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Folder</th>
+                    <th>Progress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+                  $selectf="SELECT orders.order_folder, clients.client_name, clients.client_surname, orders.order_submitted, orders.order_due, ".
+                            "workers.worker_name, workers.worker_surname, orders.order_photos, assigns.assign_done, orders.order_status ".
+                            "FROM orders ".
+                            "LEFT JOIN assigns ".
+                            "ON assigns.order_id=orders.order_id ".
+                            "LEFT JOIN workers ".
+                            "ON assigns.worker_id=workers.worker_id ".
+                            "LEFT JOIN clients ".
+                            "ON orders.client_id=clients.client_id ".
+                            "WHERE assigns.worker_id='".$_GET['sendid']."' AND orders.order_status='In progress' ";
+                    $queryf=mysqli_query($dbhandle,$selectf) or die(mysql_error());
+                    while($resf = mysqli_fetch_array($queryf))
+                    {
+                    ?>
+                    <tr>
+                      <td><?=$resf['order_folder']?></td>
+                      <?php
+                      $tot=intval($resf['order_photos']);
+                      $done=intval($resf['assign_done']);
+                      $val=(100*$done)/$tot;
+                      ?>
+                      <td>
+                        <div class="progress " style="margin-bottom: 0px; background-color:#ddd;">
+                          <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: <?= $val ?>%"></div>
+                        </div>
+                      </td>
+                    </tr>
+                    <?php } ?>
+                  </tbody>
+              </table>
+              <?php } else{?>
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                 <thead>
+                     <tr>
+                         <th>Folder</th>
+                         <th>Submitted</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                   <?php
+                     $selectc="SELECT order_folder, order_submitted from orders "
+                              . "WHERE client_id='".$name."' order by order_submitted desc LIMIT 5  ";
+                       $queryc=mysqli_query($dbhandle,$selectc) or die(mysql_error());
+                       while($resc = mysqli_fetch_array($queryc))
+                       {
+                       ?>
+                       <tr>
+                         <td><?=$resc['order_folder']?></td>
+                         <td><?=$resc['order_submitted']?></td>
+                       </tr>
+                       <?php } ?>
+                  </tbody>
+                </table>
+              <?php } ?>
   </div>
 </div>
 
