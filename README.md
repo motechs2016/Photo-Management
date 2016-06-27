@@ -12,6 +12,6 @@ Login using one of the following **usernames**  to see different levels of acces
 
 - admin
 
-The password for all account is **123**
+The password for all accounts is **123**
 
 #Screenshots
